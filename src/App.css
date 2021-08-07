@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  
+}
+
+*{
+  text-align: center;
 }
 
 .App-logo {
@@ -35,4 +40,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.square {
+  text-align: center;
+  height: 10vh;
+  width: 5vw;
+  float: left;
+  border: #282c34;
+  border-radius: 10%;
+  border-style: groove;
 }
