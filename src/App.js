@@ -8,6 +8,8 @@ import ListColors from './ListColors';
 class App extends React.Component {
 
   listColorsDrawn=[]
+  listPositions=[0,1,2,3,4]
+
 
   constructor(props){
     super(props)
@@ -20,19 +22,16 @@ class App extends React.Component {
   }
 
 
-
-  handleInput=(event)=>{
-    this.setState({
-      [event.target.name]:event.target.value
-    })
-  }
-
   addItemToListColors = (color) =>{
     this.listColorsDrawn=[...this.listColorsDrawn,color]
-    this.setState(currentState =>({
-      listColorsVisible:[...currentState.listColorsVisible,color],
-    } ))
-  }
+    if(this.listColorsDrawn.length===5){
+      for (var i = 0; i <= 4; i++){
+        let colorScrumbled = this.listColorsDrawn[this.scrumble()]
+        this.setState(currentState =>({
+        listColorsVisible:[...currentState.listColorsVisible,colorScrumbled]
+      }))
+    
+  }}}
 
   addItemToListColorsSelected = (color) =>{
     if(this.state.listColorsSeleted.length<5){
@@ -48,6 +47,7 @@ class App extends React.Component {
       }
     }
     return true }
+
   validade = () =>{
     if(this.checkColors()){
       this.setState({
@@ -59,15 +59,30 @@ class App extends React.Component {
       })  } }
 
   playAgain = () =>{
-    this.setState(currentState =>({
-      listColors:[],
+    this.listColorsDrawn=[]
+    this.listPositions=[0,1,2,3,4]
+    this.setState({
+      listColorsVisible:[],
       listColorsSeleted:[],
       winner:false,
       loser :false
-    } ))
+    } )
   }
 
-  
+  scrumble=()=>{
+    let position = Math.floor(Math.random() * 5)
+    if(this.listPositions.includes(position)){
+      this.listPositions= this.listPositions.filter(item => item !== position)
+    }
+    else{
+      while(this.listPositions.includes(position)===false){
+        position = Math.floor(Math.random() * 5)
+      }
+      this.listPositions= this.listPositions.filter(item => item !== position)
+    }
+    console.log(position)
+    return position
+  }
 
 
   render(){
@@ -84,6 +99,8 @@ class App extends React.Component {
         
       {this.state.listColorsVisible.length ===5 && <ListColors selectColor={this.addItemToListColorsSelected} listColors={this.state.listColorsVisible} listColorsSeleted={this.state.listColorsSeleted}/>}
 
+
+      <div class="bottom-less">
       <button disabled={this.state.listColorsSeleted.length !==5} onClick={this.validade}>Validar</button>
 
       {this.state.winner &&  <p>Parabens você Acertou</p>}
@@ -93,7 +110,7 @@ class App extends React.Component {
       {this.state.winner && <button onClick={this.playAgain}>Jogar Novamente</button>}
       {this.state.loser && <button onClick={this.playAgain}>Jogar Novamente</button>}
 
-      
+      </div>
 
       </>
 
