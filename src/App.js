@@ -24,7 +24,7 @@ class App extends React.Component {
 
   addItemToListColors = (color) =>{
     this.listColorsDrawn=[...this.listColorsDrawn,color]
-    if(this.listColorsDrawn.length===5){
+    if(this.listColorsDrawn.length===6){
       for (var i = 0; i <= 4; i++){
         let colorScrumbled = this.listColorsDrawn[this.scrumble()]
         this.setState(currentState =>({
@@ -90,13 +90,8 @@ class App extends React.Component {
     return (
 
       <>
-      <div>
       {this.state.listColorsVisible.length <5 && <SortColors onAddItem={this.addItemToListColors}></SortColors>}
-      </div>
-      
-      
-      
-        
+  
       {this.state.listColorsVisible.length ===5 && <ListColors selectColor={this.addItemToListColorsSelected} listColors={this.state.listColorsVisible} listColorsSeleted={this.state.listColorsSeleted}/>}
 
 
