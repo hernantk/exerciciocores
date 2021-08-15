@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useCallback } from 'react';
 import SortColors from './SortColors';
 import ListColors from './ListColors';
 
@@ -33,11 +33,12 @@ class App extends React.Component {
     
   }}}
 
-  addItemToListColorsSelected = (color) =>{
+  addItemToListColorsSelected = (color,position) =>{
     if(this.state.listColorsSeleted.length<5){
     this.setState(currentState =>({
       listColorsSeleted:[...currentState.listColorsSeleted,color],
     } ))}
+    
   }
 
   checkColors=()=>{
@@ -92,7 +93,7 @@ class App extends React.Component {
       <>
       {this.state.listColorsVisible.length <5 && <SortColors onAddItem={this.addItemToListColors}></SortColors>}
   
-      {this.state.listColorsVisible.length ===5 && <ListColors selectColor={this.addItemToListColorsSelected} listColors={this.state.listColorsVisible} listColorsSeleted={this.state.listColorsSeleted}/>}
+      {this.state.listColorsVisible.length ===5 && <ListColors addItemToListColorsSelected={this.addItemToListColorsSelected} listColors={this.state.listColorsVisible} listColorsSeleted={this.state.listColorsSeleted}/>}
 
 
       <div class="bottom-less">

@@ -26,15 +26,22 @@ listColors = ["#CC66CC","#C6C","#CC33CC","#C3C","#993399","#939","#660066","#606
     })
   }
 
-  sortFiveTimes = () =>{
-    setInterval(() => {
+  
+  componentDidMount(){
+    let count = 0
+    let sortFivetimes = setInterval(() => {
       this.sortColors()
-    }, 1000,3)
+      count ++
+      if(count===6){
+        clearInterval(sortFivetimes)
+      }
+    },1000)
+    
   }
 
 
-
   render(){
+    
     
     return (
 
@@ -43,7 +50,6 @@ listColors = ["#CC66CC","#C6C","#CC33CC","#C3C","#993399","#939","#660066","#606
         <div class="square-center">
           <div class="square" style={{backgroundColor: this.state.color}}/>
         </div>
-        {this.listColors.length===33&&<button onClick={this.sortFiveTimes}>Iniciar</button>}
 
 
       </div>
